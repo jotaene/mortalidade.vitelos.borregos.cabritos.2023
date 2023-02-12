@@ -1,0 +1,358 @@
+﻿<!DOCTYPE html>
+<html>
+   <head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<title>Evolução semanal da mortalidade em vitelos</title>
+		<link rel="shortcut icon" type="image/x-icon" href="docs/images/favicon.ico" />
+		<script src="https://code.highcharts.com/highcharts.js"></script>
+		<script src="https://code.highcharts.com/highcharts-more.js"></script>
+		<script src="https://code.highcharts.com/modules/dumbbell.js"></script>
+		<script src="https://code.highcharts.com/modules/lollipop.js"></script>
+		<script src="https://code.highcharts.com/modules/exporting.js"></script>
+		<script src="https://code.highcharts.com/modules/accessibility.js"></script>
+
+		<style>
+		html, body {
+			height: 100%;
+			margin: 0;
+			color: grey;
+		}
+		.center {
+			display: block;
+			margin-left: auto;
+			margin-right: auto;
+			width: 50%;
+		}
+		.strong {
+			font-weight: bold;
+		}
+		h1 {text-align: center;}
+		h2 {text-align: center;}
+		p {text-align: center;}
+
+		.highcharts-figure,
+		.highcharts-data-table table {
+			min-width: 320px;
+			max-width: 800px;
+			margin: 1em auto;
+		}
+
+		.highcharts-data-table table {
+			font-family: Verdana, sans-serif;
+			border-collapse: collapse;
+			border: 1px solid #ebebeb;
+			margin: 10px auto;
+			text-align: center;
+			width: 100%;
+			max-width: 500px;
+		}
+
+		.highcharts-data-table caption {
+			padding: 1em 0;
+			font-size: 1.2em;
+			color: #555;
+		}
+
+		.highcharts-data-table th {
+			font-weight: 600;
+			padding: 0.5em;
+		}
+
+		.highcharts-data-table td,
+		.highcharts-data-table th,
+		.highcharts-data-table caption {
+			padding: 0.5em;
+		}
+
+		.highcharts-data-table thead tr,
+		.highcharts-data-table tr:nth-child(even) {
+			background: #f8f8f8;
+		}
+
+		.highcharts-data-table tr:hover {
+			background: #f1f7ff;
+		}
+
+		.ld-label {
+			width: 200px;
+			display: inline-block;
+		}
+
+		.ld-url-input {
+			width: 500px;
+		}
+
+		.ld-time-input {
+			width: 40px;
+		}
+
+		a {
+		color: grey;
+		text-decoration-line: none;
+        cursor: pointer;
+		}
+
+		</style>
+
+<style>
+	/* tabs */
+	
+	/* Style the tab */
+	.tab {
+	  overflow: hidden;
+	  border: 1px solid #ccc;
+	  background-color: #f1f1f1;
+	}
+	
+	/* Style the buttons inside the tab */
+	.tab button {
+	  background-color: inherit;
+	  float: left;
+	  border: none;
+	  outline: none;
+	  cursor: pointer;
+	  padding: 14px 16px;
+	  transition: 0.3s;
+	  font-size: 16px;
+	}
+	
+	/* Change background color of buttons on hover */
+	.tab button:hover {
+	  background-color: #ddd;
+	}
+	
+	/* Create an active/current tablink class */
+	.tab button.active {
+	  background-color: #666;
+	}
+	
+	/* Style the tab content */
+	.tabcontent {
+	  display: none;
+	  padding: 6px 12px;
+	  border: 1px solid #666;
+	  border-top: none;
+	}
+
+	.tabcontent {
+	animation: fadeEffect 1s; /* Fading effect takes 1 second */
+	}
+
+	/* Go from zero to full opacity */
+	@keyframes fadeEffect {
+	from {opacity: 0;}
+	to {opacity: 1;}
+	}
+	</style>
+
+	<style>
+		/* table, th, td {
+			border: solid 1px #ddd;
+			border-collapse: collapse;
+			padding: 2px 3px;
+			text-align: center;
+		} */
+		th {
+			font-weight:bold;
+		}
+		table {
+			margin-left: auto;
+			margin-right: auto;
+		}
+		tr:nth-child(even) {
+			background-color: #d5e4f1;
+		}
+	</style>
+
+	<style>
+		.btn {
+		border: none;
+		outline: none;
+		padding: 10px 16px;
+		background-color: #f1f1f1;
+		cursor: pointer;
+		border-top-left-radius: 10px;
+		font-size: 16px;
+		}
+
+		.active, .btn:hover {
+		background-color: #666;
+		color: white;
+		}
+	</style>
+   </head>
+   <body>
+	<br />
+	<h1><a href="index.html">Evolução da mortalidade em vitelos:</a></h1>
+	<br />
+
+	<div style="display: block;" class="center">
+		<a href="Evolucao.Mensal.vitelos.html"><button class="btn">Mensal</button></a>
+		<a><button class="btn active">Semanal</button></a>
+	  </div>
+	<br />
+	<div class="tab center">
+		<button class="tablinks" onclick="openTab(event, 'Graduated')" id="defaultOpen">'Graduated map'</button>
+		<button class="tablinks" onclick="openTab(event, 'Heatmap')">'Heatmap'</button>
+		<button class="tablinks" onclick="openTab(event, 'Graph')">Obter valor por concelho</button>
+	</div>
+
+	<div id="Graduated" class="tabcontent">
+		<h2>'Graduated map'</h2>
+		<img src="vitelos.graduated.Sem.gif" width="800" alt="Mortalidade em vitelos - graduated map" class="center">
+		<br />
+	</div>
+	  
+	<div id="Heatmap" class="tabcontent">
+		<h2>'Heatmap'</h2>
+		<img src="vitelos.heatmap.Sem.gif" width="800" alt="Mortalidade em vitelos - heatmap" class="center">
+	
+		<br />
+	</div>
+	  
+	<div id="Graph" class="tabcontent">
+		<h2>Obter valor por concelho</h2>
+	<div class="center">
+		<form>
+			<label for="concelhos">Concelho?</label>
+			<select id="concelhos">
+				<option value="" disabled selected>Selecionar</option>
+			</select>
+		</form>
+		<br />
+		<label id="animais" class="strong">&nbsp;</label>
+	</div>
+	<br />
+	<figure class="highcharts-figure">
+		<div id="container"></div>
+	</figure>
+	<br />
+	<br />
+	<p class="center" id='showData'></p>
+    <p class="center" id='msg'></p>
+	</div>
+
+	<script type="text/javascript" src="mortalidade.vitelos.semanal.js"></script>
+	<!-- mortalidadeVitelosSemanal -->
+
+	<script>
+		const concelhosElem = document.querySelector('#concelhos');
+		let concelhosDropdown = document.getElementById('concelhos');
+		let concelhos = [];
+		for (let i = 0; i < mortalidadeVitelosSemanal.length; i++) {
+			concelhos.push(mortalidadeVitelosSemanal[i].concelho);
+			}
+
+		let uniqueConcelhos = Array.from(new Set(concelhos)).sort(function (a,b) {
+			return a.localeCompare(b, 'pt');
+		});
+
+		for (let i = 0; i < uniqueConcelhos.length; i++) {
+			let option = document.createElement('option');
+			option.text = uniqueConcelhos[i];
+			option.value = i;
+			concelhosDropdown.add(option);
+		}
+	
+		let seriesMortes = [];
+		let seriesNascimentos = [];
+		concelhosElem.onchange = (e) => {
+			e.preventDefault();
+			concelhoData = mortalidadeVitelosSemanal.filter( x => x.concelho === concelhosElem.options[concelhosElem.selectedIndex].text);
+			seriesMortes = concelhoData.map(x => ({ name: x.sem, low: parseInt(x.mortes)})).sort(function (a, b) {
+				if (parseInt(a.name.substring(0,a.name.indexOf("/"))) > parseInt(b.name.substring(0,b.name.indexOf("/")))) {
+					return 1;
+				}
+				if (parseInt(a.name.substring(0,a.name.indexOf("/"))) < parseInt(b.name.substring(0,b.name.indexOf("/")))) {
+					return -1;
+				}
+				// a must be equal to b
+				return 0;
+				});
+			seriesNascimentos = concelhoData.map(x => ({ name: x.sem, low: parseInt(x.nascimentos)})).sort(function (a, b) {
+			if (a.name > b.name) {
+				return 1;
+			}
+			if (a.name < b.name) {
+				return -1;
+			}
+			// a must be equal to b
+			return 0;
+			});
+
+			Highcharts.chart('container', {
+			
+			chart: {
+				type: 'lollipop'
+			},
+			
+			accessibility: {
+				point: {
+					valueDescriptionFormat: '{index}. {xDescription}, {point.y}.'
+				}
+			},
+			
+			legend: {
+				enabled: false
+			},
+			
+			subtitle: {
+				text: '2022'
+			},
+			
+			title: {
+				text: 'Evolução semanal da mortalidade em vitelos do concelho de ' + concelhosElem.options[concelhosElem.selectedIndex].text
+			},
+			
+			tooltip: {
+				shared: true
+			},
+			
+			xAxis: {
+				type: 'category'
+			},
+			
+			yAxis: {
+				title: {
+					text: 'Animais'
+				},
+				allowDecimals: false
+			},
+			
+			series: [{
+				name: 'Morte(s)',
+				data: seriesMortes
+			},
+			{
+				name: 'Nascimento(s)',
+				data: seriesNascimentos
+			}
+			]
+			});
+		};
+		
+
+	</script>
+
+	<script>
+		function openTab(evt, cityName) {
+		var i, tabcontent, tablinks;
+		tabcontent = document.getElementsByClassName("tabcontent");
+		for (i = 0; i < tabcontent.length; i++) {
+			tabcontent[i].style.display = "none";
+		}
+		tablinks = document.getElementsByClassName("tablinks");
+		for (i = 0; i < tablinks.length; i++) {
+			tablinks[i].className = tablinks[i].className.replace(" active", "");
+		}
+		document.getElementById(cityName).style.display = "block";
+		evt.currentTarget.className += " active";
+		}
+	</script>
+	<script>
+		// Get the element with id="defaultOpen" and click on it
+		document.getElementById("defaultOpen").click();
+	</script>
+   </body>
+</html>
